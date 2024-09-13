@@ -6,6 +6,19 @@
   width: $design-components-menu-width;
   border-radius: $app-component-border-radius;
   padding: $app-component-padding;
+  color: $text-color-1;
 
-  color: white;  // for now
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .menu-title {
+    font-size: $font-size-h2;
+  }
+
+  .components-module {
+    .module-title {
+      font-size: $font-size-h3;
+    }
+  }
 }
