@@ -1,0 +1,11 @@
+@import "../../variables";
+
+.sidebar-menu {
+  background-color: $app-component-color;
+  height: 100%;
+  width: $sidebar-menu-width;
+  border-radius: $app-component-border-radius;
+  padding: $app-component-padding;
+
+  color: white;  // for now
+}

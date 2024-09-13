@@ -1,0 +1,6 @@
+@import "variables";
+
+.App {
+  display: flex;
+  gap: $app-component-gap;
+}

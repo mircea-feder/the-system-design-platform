@@ -1,0 +1,11 @@
+@import "../../variables";
+
+.design-components-menu {
+  background-color: $app-component-color;
+  height: 100%;
+  width: $design-components-menu-width;
+  border-radius: $app-component-border-radius;
+  padding: $app-component-padding;
+
+  color: white;  // for now
+}

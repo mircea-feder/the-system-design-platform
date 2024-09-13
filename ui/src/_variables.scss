@@ -1,0 +1,10 @@
+$app-padding: 16px;
+$app-background-color: #292735;
+$app-component-color: #141414;
+$app-component-border-radius: 8px;
+$app-component-gap: 8px;
+$app-component-padding: 8px;
+
+$sidebar-menu-width: 13vw;
+$design-components-menu-width: 18vw;
+$design-canvas-width: calc(100vw - $sidebar-menu-width - $design-components-menu-width - 2 * $app-padding - 2 * $app-component-gap);
