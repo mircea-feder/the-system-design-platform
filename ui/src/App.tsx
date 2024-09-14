@@ -1,7 +1,6 @@
 import React from 'react';
 import {DesignCanvas} from "./components/DesignCanvas/DesignCanvas";
 import {SidebarMenu} from "./components/SidebarMenu/SidebarMenu";
-import "./App.scss";
 import {DesignComponentsMenu} from "./components/DesignComponentsMenu/DesignComponentsMenu";
 
 function App() {

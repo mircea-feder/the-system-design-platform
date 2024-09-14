@@ -7,6 +7,9 @@
 }
 
 .App {
+  display: flex;
+  gap: $app-component-gap;
+
   background-color: #313337;
   margin: 0;
   padding: $app-padding;
@@ -16,6 +19,45 @@
   p {
     margin: 0;
   }
+
+  div[data-message*="Please only hide this attribution when you are subscribed to React Flow Pro"] {
+    display: none;
+  }
+
+  .chakra-input {
+    border: 1px solid $text-color-1;
+    border-radius: 6px;
+    color: $text-color-1;
+    &::placeholder {
+      color: $text-color-placeholder;
+    }
+    &:focus {
+      outline: none; /* Remove default browser outline */
+      border-width: 2px; /* Make border 2px on focus */
+      border-color: $text-color-1; /* Retain or set a custom border color */
+      box-shadow: 0 0 1px rgba(255, 255, 255, 0.7); /* Add a 1px white-ish shadow */
+    }
+  }
+
+  .h1 {
+    font-size: 1.6em;
+  }
+  .h2 {
+    font-size: 1.4em;
+  }
+  .h3 {
+    font-size: 1.2em;
+  }
+  .p1 {
+    font-size: 1.05em;
+  }
+  .p2 {
+    font-size: 0.9em;
+  }
+  .p3 {
+    font-size: 0.75em;
+  }
+
 }
 
 body {

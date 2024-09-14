@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {
     addEdge,
     Background,
@@ -11,13 +11,38 @@ import {
 
 import '@xyflow/react/dist/style.css';
 import './DesignCanvas.scss';
+import {TextUpdaterNode} from "./TextUpdaterNode/TextUpdaterNode";
+import {CanvasNode} from "./CanvasNode/CanvasNode";
 
 export const DesignCanvas = () => {
     const initialNodes = [
-        { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-        { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
+        {
+            id: '5',
+            type: 'canvasNode',
+            position: { x: 200, y: 400 },
+            data: {
+                imgSrc: "assets/images/aws-icons/analytics/aws_athena.png",
+                componentName: "Athena",
+                tags: ["aws", "analytics", "query", "sql", "serverless", "data"],
+                name: "Event Queue EU",
+                description: "Some description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla bla Some description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla bla Some description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla bla Some description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla bla Some description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla bla Some description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla blaSome description here bla bla bla"
+            },
+        },
+        {
+            id: '6',
+            type: 'canvasNode',
+            position: { x: 400, y: 400 },
+            data: {
+                imgSrc: "assets/images/aws-icons/analytics/aws_datapipeline.png",
+                componentName: "Datapipeline",
+                tags: ["aws", "analytics", "query", "sql", "serverless", "data"],
+                name: "Data Pipeline",
+                description: "Some description here bla bla bla"
+            },
+        }
     ];
-    const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+
+    const initialEdges = [];
 
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -26,6 +51,11 @@ export const DesignCanvas = () => {
         (params: any) => setEdges((eds) => addEdge(params, eds)),
         [setEdges],
     );
+
+    const nodeTypes = useMemo(() => ({
+        textUpdater: TextUpdaterNode,
+        canvasNode: CanvasNode,
+    }), []);
 
     return (
         <div className="design-canvas">
@@ -37,6 +67,7 @@ export const DesignCanvas = () => {
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
+                nodeTypes={nodeTypes}
             >
                 <Controls />
                 {/*<MiniMap />*/}

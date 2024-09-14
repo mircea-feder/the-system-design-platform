@@ -1,0 +1,91 @@
+@import "../../../variables";
+
+.react-flow__node-canvasNode {
+  background-color: $canvas-node-background-color;
+  border: 2px solid $canvas-node-border-color;
+  border-radius: 8px;
+  max-width: 192px;
+
+  .react-flow__handle {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 20px rgba(45, 45, 45, 0.5); // Shadow effect on hover
+  }
+  &.selected {
+    box-shadow: none;
+    border-color: $canvas-node-border-color-selected;
+    .canvas-node {
+      .actions-menu {
+        display: flex;
+      }
+      .tooltip-wrapper {
+        display: block;
+      }
+    }
+  }
+
+  .canvas-node {
+    .tooltip-wrapper {
+      display: none;
+      position: absolute;
+      top: -32px;
+      right: -358px
+    }
+    padding: 8px;
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+      }
+      p {
+        color: $text-color-1;
+        text-align: center;
+      }
+    }
+    .actions-menu {
+      position: absolute;
+      top: -32px;
+      right: 0;
+      display: none;
+      background-color: $canvas-node-background-color;
+      color: $text-color-1;
+      width: min-content;
+      border: 1px solid $canvas-node-border-color-selected;
+      border-radius: 4px;
+      .action-button {
+        color: $text-color-1;
+        background-color: $canvas-node-background-color;
+        border-radius: 0;
+        transition: filter 0.3s ease;
+        &:hover {
+          cursor: pointer;
+          filter: brightness(1.2);
+        }
+        &:active {
+          font-size: 0.8em;
+        }
+        &.edit-button {
+          border-radius: 4px 0 0 4px;
+        }
+        &.details-button {
+          border-width: 0 1px 0 1px;
+          border-color: $canvas-node-border-color-selected;
+        }
+        &.delete-button {
+          background-color: darkred;
+          border-radius: 0 4px 4px 0;
+        }
+      }
+    }
+  }
+}
+
+
