@@ -1,0 +1,40 @@
+@import "../../../variables";
+
+.actions-menu {
+  right: 0;
+  display: flex;
+  background-color: $canvas-node-background-color;
+  color: $text-color-1;
+  width: min-content;
+  border: 1px solid $canvas-node-border-color-selected;
+  border-radius: 4px;
+  .action-button {
+    color: $text-color-1;
+    background-color: $canvas-node-background-color;
+    border-radius: 0;
+    transition: filter 0.3s ease;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(1.2);
+    }
+    &:active {
+      font-size: 0.8em;
+    }
+    &.edit-button {
+      border-radius: 4px 0 0 4px;
+      border-width: 0 1px 0 0;
+      border-color: $canvas-node-border-color-selected;
+    }
+    &.delete-button {
+      background-color: darkred;
+      border-radius: 0 4px 4px 0;
+    }
+  }
+}
+
+.text-wrapper {
+  padding: 2px;
+  width: fit-content;
+  color: $text-color-1;
+  background-color: $app-component-color;
+}

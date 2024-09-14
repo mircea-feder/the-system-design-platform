@@ -11,8 +11,8 @@ import {
 
 import '@xyflow/react/dist/style.css';
 import './DesignCanvas.scss';
-import {TextUpdaterNode} from "./TextUpdaterNode/TextUpdaterNode";
 import {CanvasNode} from "./CanvasNode/CanvasNode";
+import {CustomEdge} from "./CustomEdge/CustomEdge";
 
 export const DesignCanvas = () => {
     const initialNodes = [
@@ -42,19 +42,31 @@ export const DesignCanvas = () => {
         }
     ];
 
-    const initialEdges = [];
+    const initialEdges = [
+        {
+            id: 'edge-1', // Unique ID for the edge
+            source: '5', // Source node ID
+            target: '6', // Target node ID
+            type: 'customEdge', // Custom edge type
+            data: { label: 'hello' }, // Edge data containing the text "hello"
+        },
+    ];
 
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
     const onConnect = useCallback(
-        (params: any) => setEdges((eds) => addEdge(params, eds)),
+        // (params: any) => setEdges((eds) => addEdge(params, eds)),
+        (params: any) => setEdges((eds) => addEdge({ ...params, type: 'customEdge', data: { } }, eds)),
         [setEdges],
     );
 
     const nodeTypes = useMemo(() => ({
-        textUpdater: TextUpdaterNode,
         canvasNode: CanvasNode,
+    }), []);
+
+    const edgeTypes = useMemo(() => ({
+        customEdge: CustomEdge,
     }), []);
 
     return (
@@ -68,6 +80,7 @@ export const DesignCanvas = () => {
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
             >
                 <Controls />
                 {/*<MiniMap />*/}
