@@ -1,18 +1,24 @@
 import React from "react";
-import "./DesignComponentsMenu.scss"
-import {Input} from "@chakra-ui/react";
-import {DesignComponentCard} from "./DesignComponentCard/DesignComponentCard";
+import "./CanvasComponentsMenu.scss"
+import {Divider, Input} from "@chakra-ui/react";
+import {CanvasComponentCard} from "./CanvasComponentCard/CanvasComponentCard";
 import {aws} from "./DesignComponents";
+import {CanvasSubflowCard} from "./CanvasSubflowComponentCard/CanvasSubflowCard";
 
-export const DesignComponentsMenu = () => {
+export const CanvasComponentsMenu = () => {
     return (
-        <div className="design-components-menu">
+        <div className="canvas-components-menu">
             <p className="h1">Components</p>
             <div className="filter-container">
                 <p className={"p2"}>Filtering</p>
                 <Input placeholder='Load balancer' size="sm" maxLength={40} />
             </div>
-            <div className="components-modules-wrapper">
+            <Divider/>
+            <div className="components-modules-wrapper custom-scrollbar">
+                <div className="components-module subflow-module">
+                    <p className={"h2"}>Subflow</p>
+                    <CanvasSubflowCard />
+                </div>
                 <div className="components-module generic-module">
                     <p className={"h2"}>Generic</p>
                 </div>
@@ -23,7 +29,19 @@ export const DesignComponentsMenu = () => {
                         <div className={"components-list"}>
                             {
                                 aws.analytics.map((item) => (
-                                    <DesignComponentCard imgSrc={item.imgSrc} componentName={item.componentName}
+                                    <CanvasComponentCard imgSrc={item.imgSrc} componentName={item.componentName}
+                                                         tags={item.tags}/>
+                                ))
+                            }
+                            {
+                                aws.analytics.map((item) => (
+                                    <CanvasComponentCard imgSrc={item.imgSrc} componentName={item.componentName}
+                                                         tags={item.tags}/>
+                                ))
+                            }
+                            {
+                                aws.analytics.map((item) => (
+                                    <CanvasComponentCard imgSrc={item.imgSrc} componentName={item.componentName}
                                                          tags={item.tags}/>
                                 ))
                             }
@@ -34,7 +52,7 @@ export const DesignComponentsMenu = () => {
                         <div className={"components-list"}>
                             {
                                 aws.compute.map((item) => (
-                                    <DesignComponentCard imgSrc={item.imgSrc} componentName={item.componentName}
+                                    <CanvasComponentCard imgSrc={item.imgSrc} componentName={item.componentName}
                                                          tags={item.tags}/>
                                 ))
                             }

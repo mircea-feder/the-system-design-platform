@@ -1,0 +1,78 @@
+@import "../../../variables";
+
+.chakra-modal__content {
+  border: 2px solid $canvas-node-border-color-selected;
+  color: $text-color-1 !important;
+}
+
+.react-flow__node-canvasSubflow {
+  p {
+    color: $text-color-1;
+  }
+
+  .canvas-subflow-wrapper {
+    .subflow-title {
+      position: absolute;
+      left: 4px;
+      top: -28px;
+    }
+
+    .actions-menu {
+      display: none;
+      &.visible {
+        display: flex;
+        position: absolute;
+        right: 4px;
+        top: 4px;
+      }
+    }
+
+    .react-flow__resize-control {
+      display: none;
+      &.handle.bottom.right {
+        display: block;
+        width: 10px;
+        height: 10px;
+      }
+    }
+    .canvas-subflow {
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      padding: 12px;
+
+      .canvas-subflow-interior {
+        width: 100%;
+        height: 100%;
+        cursor: default;
+      }
+
+      .react-flow__handle {
+        width: 12px !important;
+        height: 12px !important;
+      }
+
+      &.subflow-green {
+        border: 2px solid $sub-flow-border-green;
+      }
+
+      &.subflow-blue {
+        border: 2px solid $sub-flow-border-blue;
+      }
+
+      &.subflow-red {
+        border: 2px solid $sub-flow-border-red;
+      }
+
+      &.subflow-purple {
+        border: 2px solid $sub-flow-border-purple;
+      }
+
+      &.selected {
+        box-shadow: none;
+        border-color: $canvas-node-border-color-selected;
+      }
+    }
+  }
+
+}

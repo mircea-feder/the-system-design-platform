@@ -22,11 +22,9 @@ export const CanvasNodeInfoTooltip = (props: CanvasNodeInfoTooltipProps) => {
                     <div>
                         <p className={"h3"}>{props.componentName}</p>
                         {
-                            (props.tags.length > 0) ? <div className={"tags-wrapper"}>
-                                {
-                                    props.tags.map(tag => <p className={"p3"}>{tag}</p>)
-                                }
-                            </div> : <></>
+                            props.tags.length > 0 ? (
+                                <p className="p3 tags">{props.tags.join(', ')}</p>
+                            ) : <></>
                         }
                     </div>
                 </div>

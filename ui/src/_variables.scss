@@ -13,6 +13,15 @@ $canvas-node-border-color: #2D2D2D;
 $canvas-node-border-color-selected: #999999;
 $canvas-node-tooltip-background-color: #393b40;
 
+$sub-flow-bkg-green: #00FF7F; /* Spring Green */
+$sub-flow-bkg-blue: #00BFFF; /* Deep Sky Blue */
+$sub-flow-bkg-red: #FF6347; /* Tomato Red */
+$sub-flow-bkg-purple: #9370DB; /* Medium Purple */
+$sub-flow-border-green: #00CC66; /* Darker Green */
+$sub-flow-border-blue: #009ACD; /* Darker Blue */
+$sub-flow-border-red: #CC4F39; /* Darker Red */
+$sub-flow-border-purple: #7A5CBF; /* Darker Purple */
+
 $sidebar-menu-width: 13vw;
 $design-components-menu-width: 18vw;
 $design-canvas-width: calc(100vw - $sidebar-menu-width - $design-components-menu-width - 2 * $app-padding - 2 * $app-component-gap);

@@ -1,14 +1,14 @@
 import React from 'react';
-import {DesignCanvas} from "./components/DesignCanvas/DesignCanvas";
+import {CanvasFlowProvider} from "./components/Canvas/CanvasFlowProvider/CanvasFlowProvider";
 import {SidebarMenu} from "./components/SidebarMenu/SidebarMenu";
-import {DesignComponentsMenu} from "./components/DesignComponentsMenu/DesignComponentsMenu";
+import {CanvasComponentsMenu} from "./components/CanvasComponentsMenu/CanvasComponentsMenu";
 
 function App() {
   return (
     <div className="App">
         <SidebarMenu></SidebarMenu>
-        <DesignComponentsMenu></DesignComponentsMenu>
-        <DesignCanvas></DesignCanvas>
+        <CanvasComponentsMenu></CanvasComponentsMenu>
+        <CanvasFlowProvider></CanvasFlowProvider>
     </div>
   );
 }

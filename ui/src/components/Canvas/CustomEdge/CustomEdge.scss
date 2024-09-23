@@ -1,6 +1,8 @@
 @import "../../../variables";
 
 .actions-menu {
+  pointer-events: all;
+  z-index: 10;
   right: 0;
   display: flex;
   background-color: $canvas-node-background-color;
@@ -10,7 +12,6 @@
   border-radius: 4px;
   .action-button {
     color: $text-color-1;
-    background-color: $canvas-node-background-color;
     border-radius: 0;
     transition: filter 0.3s ease;
     &:hover {
@@ -23,6 +24,7 @@
     &.edit-button {
       border-radius: 4px 0 0 4px;
       border-width: 0 1px 0 0;
+      background-color: $canvas-node-background-color;
       border-color: $canvas-node-border-color-selected;
     }
     &.delete-button {

@@ -1,0 +1,45 @@
+@import "../../../../variables";
+
+.chakra-modal__content {
+  border: 2px solid $canvas-node-border-color-selected;
+  color: $text-color-1 !important;
+
+  .edit-canvas-subflow-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .checkbox-container {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+
+      .checkbox {
+        width: 20px;
+        height: 20px;
+        border: 2px solid $canvas-node-border-color-selected;
+        border-radius: 4px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.visible {
+          &.g {
+            background-color: $sub-flow-border-green;
+          }
+          &.b {
+            background-color: $sub-flow-border-blue;
+          }
+          &.r {
+            background-color: $sub-flow-border-red;
+          }
+          &.p {
+            background-color: $sub-flow-border-purple;
+          }
+        }
+      }
+    }
+  }
+
+}

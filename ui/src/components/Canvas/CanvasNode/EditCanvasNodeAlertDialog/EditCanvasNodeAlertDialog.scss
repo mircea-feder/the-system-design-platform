@@ -1,0 +1,6 @@
+@import "../../../../variables";
+
+.chakra-modal__content {
+  border: 2px solid $canvas-node-border-color-selected;
+  color: $text-color-1 !important;
+}

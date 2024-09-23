@@ -1,0 +1,52 @@
+@import "../../variables";
+
+.canvas-components-menu {
+  background-color: $app-component-color;
+  height: 100%;
+  width: $design-components-menu-width;
+  border-radius: $app-component-border-radius;
+  padding: $app-component-padding;
+  color: $text-color-1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .filter-container {
+    p {
+      margin-bottom: 4px;
+    }
+  }
+  .components-modules-wrapper {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .components-module {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      .components-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .components-submodule {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        .components-item {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import "../../../../variables";
+
+.component-to-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  img {
+    width: 100px;
+    border-radius: 8px;
+  }
+}

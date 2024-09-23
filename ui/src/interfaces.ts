@@ -4,10 +4,11 @@ export interface DesignComponentCardProps {
     tags: string[];
 }
 
-export interface CanvasNodeProps {
-    imgSrc: string;
-    componentName: string;
-    tags: string[];
-    name: string;
-    description?: string;
+export enum SubflowColor {
+    GREEN,
+    BLUE,
+    RED,
+    PURPLE,
 }
+
+export type Pair<T1, T2> = [T1, T2];
