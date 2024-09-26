@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {
     addEdge,
     Background,
-    BackgroundVariant,
+    BackgroundVariant, ControlButton,
     Controls, MarkerType,
     ReactFlow,
     useEdgesState,
@@ -18,9 +18,11 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import {CanvasSubflow} from "../CanvasSubflow/CanvasSubflow";
-import {AddComponentAlertDialog} from "../AlertDialogs/AddComponentAlertDialog/AddComponentAlertDialog";
+import {AddNodeAlertDialog} from "../AlertDialogs/AddNodeAlertDialog/AddNodeAlertDialog";
 import {AddSubflowAlertDialog} from "../AlertDialogs/AddSubflowAlertDialog/AddSubflowAlertDialog";
 import {useHistory} from "../../../contexts/HistoryContext";
+import {CanvasFileManager} from "../CanvasFileManager/CanvasFileManager";
+import {DownloadIcon} from "@chakra-ui/icons";
 
 const idGen = (): string => {
     const charactersArray = [
@@ -56,31 +58,7 @@ const useKeyboardShortcuts = (onCtrlZ: () => void, onCtrlY: () => void, onDel: (
 };
 
 export const CanvasFlow = () => {
-    const initialNodes = [
-        {
-            id: idGen(),
-            type: 'canvasSubflow',
-            position: { x: 500, y: 500 },
-            selected: false,
-            data: {
-                colorScheme: SubflowColor.BLUE,
-                title: "ana are mere"
-            }
-        },
-        {
-            id: idGen(),
-            type: 'canvasNode',
-            position: { x: 0, y: 0 },
-            selected: false,
-            data: {
-                imgSrc: "assets/images/aws-icons/analytics/aws_athena.png",
-                componentName: "Athena",
-                tags: ["aws", "analytics", "query", "sql", "serverless", "data"],
-                name: "Event Queue EU",
-                description: "Some description "
-            },
-        },
-    ];
+    const initialNodes = [];
     const initialEdges = [];
 
     const reactFlowInstance = useReactFlow();
@@ -95,7 +73,6 @@ export const CanvasFlow = () => {
 
     const handleCtrlZ = () => {
         if (stateHistoryPos.current !== 0) {
-            // console.log(`ctrl+z\npos=${stateHistoryPos.current}\nhistory=${JSON.stringify(stateHistory)}`);
             if (stateHistoryPos.current === stateHistory.length) {
                 stateHistory.push([[...nodes], [...edges]]);
                 setStateHistory([...stateHistory]);
@@ -148,15 +125,6 @@ export const CanvasFlow = () => {
             window.removeEventListener("error", errorHandler);
         };
     }, []);
-
-    // useEffect(() => {
-    //     console.log('nodes: ' + JSON.stringify(nodes));
-    //     //TODO: delete this useEffect after testing
-    // }, [nodes]);
-    // useEffect(() => {
-    //     console.log('edges: ' + JSON.stringify(edges));
-    //     //TODO: delete this useEffect after testing
-    // }, [edges]);
 
     const onConnect = (params) => {
         const { source, target, sourceHandle, targetHandle } = params;
@@ -240,10 +208,14 @@ export const CanvasFlow = () => {
             onNodeDragStop={handleNodeDragStop}
             onDrop={handleDrop}
         >
-            <Controls />
+            <Controls>
+                <ControlButton onClick={() => alert('Something magical just happened. ✨')}>
+                    <DownloadIcon />
+                </ControlButton>
+            </Controls>
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
 
-            <AddComponentAlertDialog
+            <AddNodeAlertDialog
                 nodeData={dropCanvasNodeData}
                 id={idGen()}
                 pos={dropPos}

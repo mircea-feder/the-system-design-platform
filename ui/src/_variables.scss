@@ -6,8 +6,7 @@ $app-component-gap: 8px;
 $app-component-padding: 8px;
 $text-color-1: #F8F8F8;
 $text-color-placeholder: #C0C0C0;
-$text-color-aws-analytics: #8F59EC;
-$text-color-aws-compute: #F48A05;
+$file-selected: #8F59EC;
 $canvas-node-background-color: #1E1E1E;
 $canvas-node-border-color: #2D2D2D;
 $canvas-node-border-color-selected: #999999;
@@ -22,6 +21,6 @@ $sub-flow-border-blue: #009ACD; /* Darker Blue */
 $sub-flow-border-red: #CC4F39; /* Darker Red */
 $sub-flow-border-purple: #7A5CBF; /* Darker Purple */
 
-$sidebar-menu-width: 13vw;
+$sidebar-menu-width: 0vw; // change to 13vw in the future
 $design-components-menu-width: 18vw;
 $design-canvas-width: calc(100vw - $sidebar-menu-width - $design-components-menu-width - 2 * $app-padding - 2 * $app-component-gap);

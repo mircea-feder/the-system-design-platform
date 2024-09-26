@@ -1,6 +1,6 @@
 @import "../../../variables";
 
 .canvas-flow {
-  border-radius: $app-component-border-radius;
+  border-radius: 0 0 $app-component-border-radius $app-component-border-radius;
 }
 

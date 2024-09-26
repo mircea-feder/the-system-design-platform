@@ -6,7 +6,7 @@ import {CanvasComponentsMenu} from "./components/CanvasComponentsMenu/CanvasComp
 function App() {
   return (
     <div className="App">
-        <SidebarMenu></SidebarMenu>
+        {/*<SidebarMenu></SidebarMenu> to be added in the future*/}
         <CanvasComponentsMenu></CanvasComponentsMenu>
         <CanvasFlowProvider></CanvasFlowProvider>
     </div>

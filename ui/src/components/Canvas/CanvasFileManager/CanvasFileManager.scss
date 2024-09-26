@@ -1,0 +1,92 @@
+@import "../../../variables";
+
+.canvas-file-manager {
+  max-width: $design-canvas-width;
+  border-radius: $app-component-border-radius $app-component-border-radius 0 0;
+  background-color: $app-component-color;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 1px; /* Make space for the scrollbar */
+  box-sizing: content-box; /* Make sure padding is outside the content area */
+
+  border-color: $app-component-color;
+
+  //CUSTOM-SCROLLBAR==================================
+  /* Minimalistic scrollbar styles for WebKit browsers */
+  &::-webkit-scrollbar {
+    height: 1px; /* Narrow scrollbar width */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Transparent scrollbar track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #555; /* Darker scrollbar thumb */
+    border-radius: 3px; /* Rounded corners */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* Lighter thumb color on hover */
+  }
+
+  /* Minimalistic scrollbar for Firefox */
+  scrollbar-width: thin; /* Firefox: Thin scrollbar */
+  scrollbar-color: #555 transparent; /* Firefox: Thumb and track color */
+  //==================================================
+
+  .chakra-tabs__tab {
+    color: $text-color-1;
+    border: 2px solid $app-component-color;
+    border-bottom: 4px solid $app-component-color;
+
+    p {
+      max-width: 320px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px 4px 8px;
+    gap: 8px;
+
+    svg {
+      margin-top: 1px;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+      border-radius: 2px;
+      &:hover {
+        background-color: #484848;
+      }
+    }
+
+    &[aria-selected="true"] {
+      border-style: solid;
+      border-color: $app-component-color;
+      border-bottom: 3px solid $file-selected;
+      font-weight: bold;
+    }
+  }
+
+  .add-button {
+    margin: 4px 4px 0 4px;
+    color: $text-color-1;
+    background-color: $canvas-node-tooltip-background-color;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    &:hover {
+      background-color: #585858;
+    }
+    svg {
+      margin-top: -2px;
+    }
+  }
+
+  .right-spacer {
+    color: $app-component-color;
+    &:hover {
+      cursor: default;
+    }
+  }
+}

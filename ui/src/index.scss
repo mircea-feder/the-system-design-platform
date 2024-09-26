@@ -81,6 +81,21 @@ body {
     }
   }
 
+  .chakra-accordion__item {
+    border-style: none;
+    button {
+      padding: 0;
+      p {
+        text-align: left;
+        width: 100%;
+      }
+    }
+    .chakra-accordion__panel {
+      margin: 4px 0 0 0;
+      padding: 0;
+    }
+  }
+
   //CUSTOM-SCROLLBAR==================================
   /* Minimalistic scrollbar styles for WebKit browsers */
   &::-webkit-scrollbar {
