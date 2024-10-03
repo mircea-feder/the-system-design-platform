@@ -33,6 +33,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
+  "homepage": "https://mircea-feder.github.io/the-system-design-platform",
   "eslintConfig": {
     "extends": [
       "react-app",
