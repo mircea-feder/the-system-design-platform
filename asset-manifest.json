@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/the-system-design-platform/static/css/main.9e9e6ec4.css",
-    "main.js": "/the-system-design-platform/static/js/main.44c4d77a.js",
-    "static/js/453.63c4db86.chunk.js": "/the-system-design-platform/static/js/453.63c4db86.chunk.js",
-    "index.html": "/the-system-design-platform/index.html",
-    "main.9e9e6ec4.css.map": "/the-system-design-platform/static/css/main.9e9e6ec4.css.map",
-    "main.44c4d77a.js.map": "/the-system-design-platform/static/js/main.44c4d77a.js.map",
-    "453.63c4db86.chunk.js.map": "/the-system-design-platform/static/js/453.63c4db86.chunk.js.map"
+    "main.css": "./static/css/main.9e9e6ec4.css",
+    "main.js": "./static/js/main.1d9ae655.js",
+    "static/js/453.63c4db86.chunk.js": "./static/js/453.63c4db86.chunk.js",
+    "index.html": "./index.html",
+    "main.9e9e6ec4.css.map": "./static/css/main.9e9e6ec4.css.map",
+    "main.1d9ae655.js.map": "./static/js/main.1d9ae655.js.map",
+    "453.63c4db86.chunk.js.map": "./static/js/453.63c4db86.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9e9e6ec4.css",
-    "static/js/main.44c4d77a.js"
+    "static/js/main.1d9ae655.js"
   ]
 }
