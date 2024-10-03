@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {
     addEdge,
     Background,
@@ -12,7 +12,7 @@ import {
 } from "@xyflow/react";
 import {CanvasNode} from "../CanvasNode/CanvasNode";
 import {CustomEdge} from "../CustomEdge/CustomEdge";
-import {DesignComponentCardProps, SubflowColor} from "../../../interfaces";
+import {DesignComponentCardProps} from "../../../interfaces";
 import "./CanvasFlow.scss";
 import {
     useDisclosure
@@ -21,8 +21,8 @@ import {CanvasSubflow} from "../CanvasSubflow/CanvasSubflow";
 import {AddNodeAlertDialog} from "../AlertDialogs/AddNodeAlertDialog/AddNodeAlertDialog";
 import {AddSubflowAlertDialog} from "../AlertDialogs/AddSubflowAlertDialog/AddSubflowAlertDialog";
 import {useHistory} from "../../../contexts/HistoryContext";
-import {CanvasFileManager} from "../CanvasFileManager/CanvasFileManager";
 import {DownloadIcon} from "@chakra-ui/icons";
+import {SaveDiagramAlertDialog} from "../AlertDialogs/SaveDiagramAlertDialog/SaveDiagramAlertDialog";
 
 const idGen = (): string => {
     const charactersArray = [
@@ -38,33 +38,57 @@ const idGen = (): string => {
     return sb;
 }
 
-const useKeyboardShortcuts = (onCtrlZ: () => void, onCtrlY: () => void, onDel: () => void) => {
+const useKeyboardShortcuts = (onCtrlZ: () => void, onCtrlY: () => void, onDel: () => void, onCtrlS: () => void) => {
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key === "Delete")
                 onDel();
-            else if (event.ctrlKey && event.key === 'z')
+            else if (event.ctrlKey && event.key === 'z') {
+                event.preventDefault();
                 onCtrlZ();
-            else if (event.ctrlKey && event.key === 'y')
+            } else if (event.ctrlKey && event.key === 'y') {
+                event.preventDefault();
                 onCtrlY();
+            } else if (event.ctrlKey && event.key === 's') {
+                event.preventDefault();
+                onCtrlS();
+            }
         };
 
         window.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [onCtrlZ, onCtrlY, onDel]);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [onCtrlZ, onCtrlY, onCtrlS, onDel]);
 };
 
-export const CanvasFlow = () => {
-    const initialNodes = [];
-    const initialEdges = [];
+interface CanvasFlowProps {
+    selectedFileName: string,
+}
 
+export const CanvasFlow = (props: CanvasFlowProps) => {
     const reactFlowInstance = useReactFlow();
     const { isOpen: isAddComponentOpen, onOpen: onAddComponentOpen, onClose: onAddComponentClose } = useDisclosure();
     const { isOpen: isAddSubflowOpen, onOpen: onAddSubflowOpen, onClose: onAddSubflowClose } = useDisclosure();
+    const { isOpen: isSaveDiagramOpen, onOpen: onSaveDiagramOpen, onClose: onSaveDiagramClose } = useDisclosure();
 
+    const getInitialState = () => {
+        if (props.selectedFileName) {
+            const fileContent = localStorage.getItem(props.selectedFileName);
+            if (fileContent) {
+                try {
+                    const parsedContent = JSON.parse(fileContent);
+                    if (Array.isArray(parsedContent.nodes) && Array.isArray(parsedContent.edges)) {
+                        return { nodes: parsedContent.nodes, edges: parsedContent.edges };
+                    }
+                } catch (error) {
+                    console.error('Error parsing JSON from localStorage:', error);
+                }
+            }
+        }
+        // Default to empty arrays if no data is found
+        return { nodes: [], edges: [] };
+    };
+
+    const { nodes: initialNodes, edges: initialEdges } = getInitialState();
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
@@ -81,19 +105,46 @@ export const CanvasFlow = () => {
             setEdges(stateHistory[stateHistoryPos.current][1]);
         }
     }
+
     const handleCtrlY = () => {
         if (stateHistoryPos.current + 1 < stateHistory.length) {
             setNodes(stateHistory[++ stateHistoryPos.current][0]);
             setEdges(stateHistory[stateHistoryPos.current][1]);
         }
     }
+
     const handleOnDel = () => {
-        if (edges.find(x => x.selected)) {
+        if (nodes.find(x => x.selected) || edges.find(x => x.selected)) {
             addToHistory(nodes, edges);
-            setEdges((edges) => edges.filter((edge) => !edge.selected));
+
+            setNodes((nodes) => {
+                const updatedNodes = nodes.filter((node) => !node.selected);
+                const remainingNodeIds = new Set(updatedNodes.map((node) => node.id));
+
+                setEdges((edges) =>
+                    edges.filter((edge) => {
+                        const [sourcePart, targetPart] = edge.id.split('->');
+                        const sourceNodeId = sourcePart.split(':')[0];
+                        const targetNodeId = targetPart.split(':')[0];
+                        return (
+                            !edge.selected &&
+                            remainingNodeIds.has(sourceNodeId) &&
+                            remainingNodeIds.has(targetNodeId)
+                        );
+                    })
+                );
+
+                return updatedNodes;
+            });
         }
     }
-    useKeyboardShortcuts(handleCtrlZ, handleCtrlY, handleOnDel);
+
+    const handleCtrlS = () => {
+        if (!isSaveDiagramOpen)
+            onSaveDiagramOpen();
+    }
+
+    useKeyboardShortcuts(handleCtrlZ, handleCtrlY, handleOnDel, handleCtrlS);
     //----------
 
     const [dropCanvasNodeData, setDropCanvasNodeData] = useState<DesignComponentCardProps>({
@@ -102,6 +153,17 @@ export const CanvasFlow = () => {
         tags: [],
     });
     const [dropPos, setDropPos] = useState<XYPosition>(null);
+
+    const previousFileName = useRef(props.selectedFileName);
+    useEffect(() => {
+        console.log(`{"nodes":${JSON.stringify(nodes)},"edges":${JSON.stringify(edges)}}`);
+        if (props.selectedFileName && previousFileName.current === props.selectedFileName) {
+            localStorage.setItem(
+                props.selectedFileName,
+                JSON.stringify({ nodes, edges })
+            );
+        }
+    }, [nodes, edges, props.selectedFileName])
 
     useEffect(() => {
         const errorHandler = (e: any) => {
@@ -125,6 +187,30 @@ export const CanvasFlow = () => {
             window.removeEventListener("error", errorHandler);
         };
     }, []);
+
+    useEffect(() => {
+        if (props.selectedFileName) {
+            previousFileName.current = props.selectedFileName;
+
+            const fileContent = localStorage.getItem(props.selectedFileName);
+
+            if (fileContent) {
+                try {
+                    const parsedContent = JSON.parse(fileContent);
+
+                    // Check if nodes and edges are present in the content
+                    if (Array.isArray(parsedContent.nodes) && Array.isArray(parsedContent.edges)) {
+                        setNodes(parsedContent.nodes);
+                        setEdges(parsedContent.edges);
+                    } else {
+                        console.error('Invalid file structure. Expected "nodes" and "edges" arrays.');
+                    }
+                } catch (error) {
+                    console.error('Error parsing JSON from localStorage:', error);
+                }
+            }
+        }
+    }, [props.selectedFileName, setNodes, setEdges]);
 
     const onConnect = (params) => {
         const { source, target, sourceHandle, targetHandle } = params;
@@ -209,7 +295,7 @@ export const CanvasFlow = () => {
             onDrop={handleDrop}
         >
             <Controls>
-                <ControlButton onClick={() => alert('Something magical just happened. ✨')}>
+                <ControlButton onClick={onSaveDiagramOpen}>
                     <DownloadIcon />
                 </ControlButton>
             </Controls>
@@ -228,6 +314,12 @@ export const CanvasFlow = () => {
                 pos={dropPos}
                 isAddSubflowOpen={isAddSubflowOpen}
                 onAddSubflowClose={onAddSubflowClose}
+            />
+
+            <SaveDiagramAlertDialog
+                isSaveDiagramOpen={isSaveDiagramOpen}
+                onSaveDiagramClose={onSaveDiagramClose}
+                selectedFileName={props.selectedFileName}
             />
 
         </ReactFlow>

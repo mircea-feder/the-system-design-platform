@@ -1,0 +1,43 @@
+@import "../../../../variables";
+
+.new-file-alert-dialog {
+  #header {
+    display: flex;
+    align-items: center;
+    p {
+      width: 100%;
+    }
+
+    button {
+      transition: background-color 0.2s ease;
+      &:hover {
+        background-color: darkred;
+      }
+    }
+  }
+
+  .actions-menu-nfo {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    gap: 64px;
+
+    .action-button {
+      padding: $app-padding;
+      border-radius: $app-component-border-radius;
+      img {
+        width: 48px;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $canvas-node-border-color-selected;
+      }
+    }
+  }
+}

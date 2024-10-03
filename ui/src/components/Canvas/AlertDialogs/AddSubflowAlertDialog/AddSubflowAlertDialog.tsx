@@ -100,19 +100,19 @@ export const AddSubflowAlertDialog = (props: AddSubflowAlertDialogProps) => {
                         <div className={"add-subflow-content"}>
                             <div className={`subflow-imitation ${getColorCode(subflowColor)}`}>
                                 <div className={"mini-node"}>
-                                    <img src={"assets/images/aws-icons/analytics/aws_athena.png"}
+                                    <img src={'assets/images/azure/compute/batch-accounts.png'}
                                          alt={"cannot load img"}/>
-                                    <p className={"p2"}>Athena</p>
+                                    <p className={"p2"}>Component</p>
                                 </div>
                                 <div className={"mini-node"}>
-                                    <img src={"assets/images/aws-icons/analytics/aws_athena.png"}
+                                    <img src={"assets/images/aws/compute/app-runner.png"}
                                          alt={"cannot load img"}/>
-                                    <p className={"p2"}>Athena</p>
+                                    <p className={"p2"}>Component</p>
                                 </div>
                                 <div className={"mini-node"}>
-                                    <img src={"assets/images/aws-icons/analytics/aws_athena.png"}
+                                    <img src={"assets/images/gcp/ml/ai-hub.png"}
                                          alt={"cannot load img"}/>
-                                    <p className={"p2"}>Athena</p>
+                                    <p className={"p2"}>Component</p>
                                 </div>
                             </div>
                             <div className={"checkbox-container"}>

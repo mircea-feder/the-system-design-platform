@@ -10,7 +10,7 @@ import {useHistory} from "../../../contexts/HistoryContext";
 const handlePositions: Position[] = [Position.Top, Position.Right, Position.Bottom, Position.Left];
 
 export const CanvasSubflow = ({id, data}: NodeProps) => {
-    const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
+    const { setNodes, setEdges, getNodes, getEdges, getNode } = useReactFlow();
     // @ts-ignore
     const { addToHistory } = useHistory();
     const titleRef = useRef();
@@ -58,10 +58,7 @@ export const CanvasSubflow = ({id, data}: NodeProps) => {
 
     const [nodeSize, setNodeSize] = useState<number[]>([MIN_WIDTH, MIN_HEIGHT]);
 
-    const handleOnResize = (params: ResizeParams & { direction: number[]; }) => {
-        console.log(JSON.stringify(params));
-        setNodeSize([params.width, params.height]);
-    }
+    const handleOnResize = (params: ResizeParams & { direction: number[]; }) => setNodeSize([params.width, params.height]);
 
     const handleDelete = () => {
         addToHistory(getNodes(), getEdges());
@@ -77,8 +74,8 @@ export const CanvasSubflow = ({id, data}: NodeProps) => {
             onMouseLeave={(ev) => setDisplayActionsMenu(false)}
             onMouseMove={(ev) => handleOnMouseOver()}
             style={{
-                width: `${nodeSize[0]}px`,
-                height: `${nodeSize[1]}px`,
+                width: `${getNode(id) && getNode(id).width > MIN_WIDTH ? getNode(id).width : nodeSize[0]}px`,
+                height: `${getNode(id) && getNode(id).height > MIN_HEIGHT ? getNode(id).height : nodeSize[1]}px`,
             }
         }>
             <NodeResizer

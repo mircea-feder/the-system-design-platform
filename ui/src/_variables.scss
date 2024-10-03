@@ -23,4 +23,4 @@ $sub-flow-border-purple: #7A5CBF; /* Darker Purple */
 
 $sidebar-menu-width: 0vw; // change to 13vw in the future
 $design-components-menu-width: 18vw;
-$design-canvas-width: calc(100vw - $sidebar-menu-width - $design-components-menu-width - 2 * $app-padding - 2 * $app-component-gap);
+$design-canvas-width: calc(100vw - $sidebar-menu-width - $design-components-menu-width - 2 * $app-padding - 1 * $app-component-gap);

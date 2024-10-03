@@ -1,0 +1,44 @@
+@import "../../../variables";
+
+.no-files-open {
+  width: $design-canvas-width;
+  height: 100%;
+  background-color: $app-component-color;
+  padding: $app-component-padding;
+  border-radius: $app-component-border-radius;
+  p {
+    font-weight: bold;
+    color: $text-color-1;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+
+  .actions-menu-nfo {
+    display: flex;
+    gap: 64px;
+    justify-content: center;
+
+    .actions-button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: $app-component-padding;
+      border-radius: $app-component-border-radius;
+
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $canvas-node-border-color-selected;
+      }
+
+      img {
+        width: 48px;
+      }
+    }
+  }
+}
