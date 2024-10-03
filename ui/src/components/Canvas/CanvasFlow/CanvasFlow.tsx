@@ -38,18 +38,12 @@ const idGen = (): string => {
     return sb;
 }
 
-const useKeyboardShortcuts = (onCtrlZ: () => void, onCtrlY: () => void, onDel: () => void, onCtrlS: () => void) => {
+const useKeyboardShortcuts = (onDel: () => void, onCtrlS: () => void) => {
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key === "Delete")
                 onDel();
-            else if (event.ctrlKey && event.key === 'z') {
-                event.preventDefault();
-                onCtrlZ();
-            } else if (event.ctrlKey && event.key === 'y') {
-                event.preventDefault();
-                onCtrlY();
-            } else if (event.ctrlKey && event.key === 's') {
+            else if (event.ctrlKey && event.key === 's') {
                 event.preventDefault();
                 onCtrlS();
             }
@@ -57,7 +51,7 @@ const useKeyboardShortcuts = (onCtrlZ: () => void, onCtrlY: () => void, onDel: (
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [onCtrlZ, onCtrlY, onCtrlS, onDel]);
+    }, [onCtrlS, onDel]);
 };
 
 interface CanvasFlowProps {
@@ -95,23 +89,25 @@ export const CanvasFlow = (props: CanvasFlowProps) => {
     // @ts-ignore
     const { addToHistory, stateHistory, setStateHistory, stateHistoryPos } = useHistory();
 
-    const handleCtrlZ = () => {
-        if (stateHistoryPos.current !== 0) {
-            if (stateHistoryPos.current === stateHistory.length) {
-                stateHistory.push([[...nodes], [...edges]]);
-                setStateHistory([...stateHistory]);
-            }
-            setNodes(stateHistory[-- stateHistoryPos.current][0]);
-            setEdges(stateHistory[stateHistoryPos.current][1]);
-        }
-    }
+    // TODO: to be fixed
+    // const handleCtrlZ = () => {
+    //     if (stateHistoryPos.current !== 0) {
+    //         if (stateHistoryPos.current === stateHistory.length) {
+    //             stateHistory.push([[...nodes], [...edges]]);
+    //             setStateHistory([...stateHistory]);
+    //         }
+    //         setNodes(stateHistory[-- stateHistoryPos.current][0]);
+    //         setEdges(stateHistory[stateHistoryPos.current][1]);
+    //     }
+    // }
 
-    const handleCtrlY = () => {
-        if (stateHistoryPos.current + 1 < stateHistory.length) {
-            setNodes(stateHistory[++ stateHistoryPos.current][0]);
-            setEdges(stateHistory[stateHistoryPos.current][1]);
-        }
-    }
+    // TODO: to be fixed
+    // const handleCtrlY = () => {
+    //     if (stateHistoryPos.current + 1 < stateHistory.length) {
+    //         setNodes(stateHistory[++ stateHistoryPos.current][0]);
+    //         setEdges(stateHistory[stateHistoryPos.current][1]);
+    //     }
+    // }
 
     const handleOnDel = () => {
         if (nodes.find(x => x.selected) || edges.find(x => x.selected)) {
@@ -144,7 +140,7 @@ export const CanvasFlow = (props: CanvasFlowProps) => {
             onSaveDiagramOpen();
     }
 
-    useKeyboardShortcuts(handleCtrlZ, handleCtrlY, handleOnDel, handleCtrlS);
+    useKeyboardShortcuts(handleOnDel, handleCtrlS);
     //----------
 
     const [dropCanvasNodeData, setDropCanvasNodeData] = useState<DesignComponentCardProps>({
