@@ -33,7 +33,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "./",
   "eslintConfig": {
     "extends": [
       "react-app",
