@@ -91,7 +91,7 @@ export const AddNodeAlertDialog = (props: AddComponentAlertDialogProps) => {
                         <div className={"add-dialog-content"}>
                             <p className={"p1"}>Node name *</p>
                             <Input
-                                maxLength={20} placeholder={"SQL Database"}
+                                maxLength={20} placeholder={props.nodeData.componentName}
                                 onChange={handleEditNodeName}
                                 defaultValue={""}
                             />
